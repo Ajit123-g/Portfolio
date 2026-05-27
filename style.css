@@ -1,0 +1,953 @@
+/* ============================================================
+   PORTFOLIO CSS — "Dark Forge" Aesthetic
+   Theme: Obsidian dark base · Acid green accent · Sharp geometry
+   Fonts: Syne (display) + DM Mono (body/code feel)
+   ============================================================ */
+body{
+  padding: 0px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+
+:root {
+  --bg:        #0a0a0a;
+  --surface:   #111111;
+  --surface2:  #181818;
+  --border:    #2a2a2a;
+  --accent:    #b8ff57;
+  --accent2:   #57ffd4;
+  --text:      #e8e8e8;
+  --text-muted:#6b6b6b;
+  --white:     #ffffff;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Mono', monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  /* Fluid spacing scale */
+  --space-xs:  clamp(8px,  1.5vw, 16px);
+  --space-sm:  clamp(12px, 2vw,   24px);
+  --space-md:  clamp(20px, 3vw,   48px);
+  --space-lg:  clamp(32px, 5vw,   80px);
+  --space-xl:  clamp(48px, 7vw,   120px);
+
+  /* Fluid side padding */
+  --pad-x: clamp(16px, 4vw, 48px);
+
+  --transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 30px rgba(184,255,87,0.18);
+}
+
+/* ── Reset & Base ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.5vw, 15px);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  overflow-x: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Selection ─────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+#head {
+  background-color: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  color: var(--white);
+  padding: 0 var(--pad-x);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(52px, 8vw, 64px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#head nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#head::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+#head .logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(14px, 2vw, 18px);
+  letter-spacing: -0.04em;
+  color: var(--white);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#head .logo span { color: var(--accent); }
+
+/* Nav container */
+#Hbutton {
+  display: flex;
+  align-items: center;
+  gap: clamp(0px, 0.5vw, 4px);
+  flex-wrap: nowrap;
+}
+
+#Hbutton a,
+#Hbutton button {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 1.2vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  padding: clamp(6px, 1vw, 8px) clamp(8px, 1.5vw, 16px);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition), background var(--transition);
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+#Hbutton a:hover,
+#Hbutton button:hover {
+  color: var(--accent);
+  background: rgba(184, 255, 87, 0.07);
+}
+
+#Hbutton a.active { color: var(--accent); }
+
+/* ============================================================
+   MAIN — index.html (#main)
+   ============================================================ */
+#main {
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  z-index: 1;
+  background-color: var(--bg);
+  padding: 0;
+}
+
+#info {
+  padding: clamp(40px, 8vw, 100px) var(--pad-x) clamp(32px, 5vw, 60px);
+  max-width: min(820px, 100%);
+}
+
+#info h1 {
+  font-size: clamp(36px, 8vw, 96px);
+  color: var(--white);
+  margin-bottom: clamp(16px, 2.5vw, 24px);
+}
+
+#info h1 .highlight { color: var(--accent); }
+
+#info p {
+  font-size: clamp(14px, 1.8vw, 16px);
+  color: var(--text-muted);
+  max-width: min(480px, 100%);
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+/* ── Buttons (.Mbutton) ──────────────────────────────────────*/
+.Mbutton {
+  font-family: var(--font-display);
+  font-size: clamp(11px, 1.2vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(10px, 1.5vw, 14px) clamp(16px, 2.5vw, 28px);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Mbutton.primary,
+.Mbutton:first-of-type {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  margin-right: clamp(8px, 1.5vw, 16px);
+}
+
+.Mbutton.primary:hover,
+.Mbutton:first-of-type:hover {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.Mbutton.secondary,
+.Mbutton:not(:first-of-type) {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+  margin-right: clamp(8px, 1.5vw, 16px);
+}
+
+.Mbutton.secondary:hover,
+.Mbutton:not(:first-of-type):hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ============================================================
+   HOME PAGE — (#Hmain)
+   ============================================================ */
+#Hmain {
+  background-color: var(--bg);
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  z-index: 1;
+}
+
+#about {
+  overflow-wrap: break-word;
+  padding: clamp(40px, 6vw, 80px) var(--pad-x);
+}
+
+#about h2 {
+  font-size: clamp(26px, 5vw, 56px);
+  color: var(--white);
+  margin-bottom: clamp(12px, 2vw, 16px);
+}
+
+#about p {
+  color: var(--text-muted);
+  max-width: min(600px, 100%);
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-size: clamp(13px, 1.6vw, 15px);
+}
+
+/* ── Boxes Grid ──────────────────────────────────────────────*/
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: clamp(12px, 2vw, 16px);
+  width: 100%;
+  padding: clamp(20px, 4vw, 48px) var(--pad-x);
+  box-sizing: border-box;
+}
+
+.box {
+  min-height: clamp(140px, 20vw, 200px);
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(184,255,87,0.06), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.box:hover {
+  border-color: rgba(184,255,87,0.4);
+  transform: translateY(-4px);
+}
+
+.box:hover::before { opacity: 1; }
+
+.box h3 {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--white);
+  margin-bottom: clamp(8px, 1.5vw, 12px);
+}
+
+.box p,
+.box span {
+  font-size: clamp(12px, 1.4vw, 14px);
+  color: var(--text-muted);
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ============================================================
+   CONTACT PAGE — (#Cmain, #Cfooter)
+   ============================================================ */
+#Cmain {
+  background-color: var(--bg);
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  padding: clamp(40px, 6vw, 80px) var(--pad-x);
+}
+
+#Cmain h2 {
+  font-size: clamp(26px, 5vw, 56px);
+  color: var(--white);
+  margin-bottom: clamp(8px, 1.5vw, 12px);
+}
+
+#Cmain p {
+  color: var(--text-muted);
+  margin-bottom: clamp(28px, 4vw, 48px);
+  font-size: clamp(13px, 1.6vw, 15px);
+}
+
+#Cmain input,
+#Cmain textarea {
+  width: 100%;
+  max-width: min(560px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.4vw, 14px);
+  padding: clamp(10px, 1.5vw, 14px) clamp(12px, 2vw, 18px);
+  margin-bottom: clamp(10px, 1.5vw, 16px);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  display: block;
+}
+
+#Cmain input:focus,
+#Cmain textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(184,255,87,0.12);
+}
+
+#Cmain textarea {
+  min-height: clamp(100px, 15vw, 140px);
+  resize: vertical;
+}
+
+#Cmain input::placeholder,
+#Cmain textarea::placeholder { color: var(--text-muted); }
+
+/* Footer */
+#Cfooter {
+  height: auto;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: clamp(11px, 1.3vw, 13px);
+  letter-spacing: 0.03em;
+  padding: clamp(16px, 2.5vw, 24px) var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#Cfooter span { color: var(--accent); }
+
+/* ============================================================
+   ABOUT PAGE — (#Amain, .Abox)
+   ============================================================ */
+#Amain {
+  background-color: var(--bg);
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  padding: clamp(40px, 6vw, 80px) var(--pad-x);
+}
+
+#Amain h2 {
+  font-size: clamp(26px, 5vw, 56px);
+  color: var(--white);
+  margin-bottom: clamp(28px, 4vw, 48px);
+  position: relative;
+  display: inline-block;
+}
+
+#Amain h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.Abox {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 32px) clamp(20px, 3.5vw, 36px);
+  margin: clamp(14px, 2.5vw, 24px) 0;
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.Abox::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  border-radius: 2px 0 0 2px;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.Abox:hover {
+  border-color: rgba(184,255,87,0.3);
+  transform: translateX(6px);
+}
+
+.Abox:hover::before { opacity: 1; }
+
+.Abox h3 {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--white);
+  margin-bottom: clamp(6px, 1.2vw, 10px);
+}
+
+.Abox p {
+  color: var(--text-muted);
+  font-size: clamp(12px, 1.4vw, 14px);
+}
+
+/* ============================================================
+   PROJECTS PAGE — (#Pmain, .card)
+   ============================================================ */
+#Pmain {
+  background-color: var(--bg);
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  z-index: 1;
+  padding-bottom: clamp(40px, 6vw, 80px);
+}
+
+#Pmain h2 {
+  font-size: clamp(26px, 5vw, 56px);
+  color: var(--white);
+  padding: clamp(40px, 6vw, 80px) var(--pad-x) 0;
+  margin-bottom: 8px;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: clamp(14px, 2vw, 20px);
+  padding: clamp(24px, 4vw, 40px) var(--pad-x);
+}
+
+.card {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(184,255,87,0.35);
+  box-shadow: 0 0 0 1px rgba(184,255,87,0.2), 0 30px 80px rgba(0,0,0,0.6), var(--shadow-glow);
+}
+
+.card img {
+  width: 100%;
+  height: clamp(160px, 22vw, 210px);
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%) brightness(0.85);
+  transition: filter var(--transition);
+}
+
+.card:hover img {
+  filter: grayscale(0%) brightness(1);
+}
+
+.content {
+  padding: clamp(16px, 2.5vw, 24px);
+}
+
+.content h2 {
+  margin-bottom: clamp(6px, 1.2vw, 10px);
+  font-size: clamp(18px, 2.5vw, 22px);
+  color: var(--white);
+}
+
+.content p {
+  color: var(--text-muted);
+  margin-bottom: clamp(12px, 2vw, 20px);
+  line-height: 1.65;
+  font-size: clamp(12px, 1.4vw, 14px);
+}
+
+.tags {
+  display: flex;
+  gap: clamp(6px, 1vw, 8px);
+  flex-wrap: wrap;
+  margin-bottom: clamp(12px, 2vw, 20px);
+}
+
+.tags span {
+  background: rgba(184,255,87,0.08);
+  color: var(--accent);
+  border: 1px solid rgba(184,255,87,0.2);
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: clamp(10px, 1.2vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-family: var(--font-body);
+}
+
+.content a {
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--text-muted);
+  transition: color var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.content a:hover { color: var(--accent); }
+
+.card .badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+/* ============================================================
+   SERVICES PAGE — (#Semain)
+   ============================================================ */
+#Semain {
+  background-color: var(--bg);
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  z-index: 1;
+  padding: clamp(40px, 6vw, 80px) var(--pad-x);
+}
+
+#Semain h2 {
+  font-size: clamp(26px, 5vw, 56px);
+  color: var(--white);
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  gap: clamp(12px, 2vw, 16px);
+}
+
+.service-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 32px);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.service-item:hover {
+  border-color: rgba(87,255,212,0.4);
+  transform: translateY(-4px);
+}
+
+.service-item .icon {
+  font-size: clamp(22px, 3vw, 28px);
+  margin-bottom: clamp(10px, 1.5vw, 16px);
+  display: block;
+}
+
+.service-item h3 {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--white);
+  margin-bottom: clamp(6px, 1vw, 10px);
+}
+
+.service-item p {
+  font-size: clamp(12px, 1.4vw, 14px);
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   SKILLS PAGE — (#Smain)
+   ============================================================ */
+#Smain {
+  background-color: var(--bg);
+  flex: 1;
+  margin-top: clamp(52px, 8vw, 64px);
+  z-index: 1;
+  padding: clamp(40px, 6vw, 80px) var(--pad-x);
+}
+
+#Smain h2 {
+  font-size: clamp(26px, 5vw, 56px);
+  color: var(--white);
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.5vw, 12px);
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: clamp(11px, 1.3vw, 13px);
+  padding: clamp(7px, 1.2vw, 10px) clamp(12px, 2vw, 20px);
+  border-radius: 99px;
+  transition: all var(--transition);
+  cursor: default;
+}
+
+.skill-pill:hover {
+  background: rgba(184,255,87,0.08);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.skill-bar-item { margin-bottom: clamp(16px, 2.5vw, 24px); }
+
+.skill-bar-item .label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text);
+  font-size: clamp(12px, 1.4vw, 14px);
+  margin-bottom: 8px;
+}
+
+.skill-bar-item .label span:last-child { color: var(--accent); }
+
+.skill-bar-track {
+  height: 4px;
+  background: var(--surface2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+  transform-origin: left;
+  animation: fillBar 1.2s var(--transition) forwards;
+}
+
+@keyframes fillBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ============================================================
+   SECTION DIVIDER
+   ============================================================ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 var(--pad-x);
+  width: calc(100% - (var(--pad-x) * 2));
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#head                        { animation: fadeUp 0.5s ease both; }
+#main, #Hmain, #Amain,
+#Cmain, #Pmain, #Semain,
+#Smain                       { animation: fadeUp 0.6s 0.1s ease both; }
+
+.box                         { animation: fadeUp 0.5s ease both; }
+.box:nth-child(2)            { animation-delay: 0.1s; }
+.box:nth-child(3)            { animation-delay: 0.2s; }
+.box:nth-child(4)            { animation-delay: 0.3s; }
+
+.card                        { animation: fadeUp 0.5s ease both; }
+.card:nth-child(2)           { animation-delay: 0.1s; }
+.card:nth-child(3)           { animation-delay: 0.2s; }
+.card:nth-child(4)           { animation-delay: 0.3s; }
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* ── Tablet (≤ 900px) ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  }
+
+  .projects {
+    grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  }
+}
+
+/* ── Mobile (≤ 640px) ───────────────────────────────────────── */
+@media (max-width: 640px) {
+
+  /* Header: shrink logo, tighten nav */
+  #head {
+    height: 52px;
+  }
+
+  #head .logo {
+    font-size: 13px;
+  }
+
+  #Hbutton {
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #Hbutton::-webkit-scrollbar { display: none; }
+
+  #Hbutton a,
+  #Hbutton button {
+    font-size: 10px;
+    padding: 6px 8px;
+    flex-shrink: 0;
+  }
+
+  /* Stack margins */
+  #main, #Hmain, #Amain,
+  #Cmain, #Smain, #Semain,
+  #Pmain {
+    margin-top: 52px;
+  }
+
+  /* Info section */
+  #info {
+    padding: 32px 16px 24px;
+  }
+
+  #info h1 {
+    font-size: clamp(32px, 11vw, 52px);
+  }
+
+  /* About section */
+  #about {
+    padding: 32px 16px;
+  }
+
+  /* Boxes: 2-column on small mobile, 1-column on tiny */
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .box {
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  /* Projects: single column */
+  .projects {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .card img {
+    height: clamp(140px, 45vw, 200px);
+  }
+
+  /* Service grid: single column */
+  .service-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* Buttons: wrap and fill */
+  .Mbutton {
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+
+  /* Footer: stack */
+  #Cfooter {
+    flex-direction: column;
+    text-align: center;
+    padding: 14px 16px;
+    gap: 6px;
+  }
+
+  /* Contact */
+  #Cmain {
+    padding: 32px 16px;
+  }
+
+  /* About page */
+  #Amain {
+    padding: 32px 16px;
+  }
+
+  .Abox {
+    padding: 16px 18px;
+  }
+
+  /* Skills page */
+  #Smain {
+    padding: 32px 16px;
+  }
+
+  /* Projects page header */
+  #Pmain h2 {
+    padding: 32px 16px 0;
+  }
+
+  /* Services page */
+  #Semain {
+    padding: 32px 16px;
+  }
+
+  /* Section divider */
+  .section-divider {
+    margin: 0 16px;
+    width: calc(100% - 32px);
+  }
+}
+
+/* ── Tiny (≤ 380px) ─────────────────────────────────────────── */
+@media (max-width: 380px) {
+
+  /* Nav: hide labels, show only active + hire */
+  #Hbutton a:not(.active):not(.Mbutton) {
+    font-size: 9px;
+    padding: 5px 6px;
+  }
+
+  /* Boxes: single column */
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .box {
+    min-height: auto;
+  }
+
+  /* Hero name */
+  #info h1 {
+    font-size: 28px;
+  }
+}
