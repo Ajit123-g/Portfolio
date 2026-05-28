@@ -372,6 +372,13 @@ img {
   padding: clamp(40px, 6vw, 80px) var(--pad-x);
 }
 
+.container.contact-container {
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: clamp(12px, 3vw, 24px) var(--pad-x);
+}
+
 #Cmain h2 {
   font-size: clamp(26px, 5vw, 56px);
   color: var(--white);
